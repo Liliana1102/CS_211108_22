@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "inicio": "node ./api/index.js"
+    "inicio": "node ./api/index.js",
+    "go": "nodemon ./api/index.js"
   },
   "author": "Liliana",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1",
+    "pg": "^8.7.3",
     "socket.io": "^4.5.1"
   }
 }

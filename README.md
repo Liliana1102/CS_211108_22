@@ -8,6 +8,4 @@ npm install --save socket.io
 
 npm install -g --force nodemon
 
-bash
-cd api
-nodemon index.js
+npm i pg --save
