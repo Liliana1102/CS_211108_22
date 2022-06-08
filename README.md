@@ -1,7 +1,3 @@
-npm uninstall express
-
-npm uninstall socket.io
-
 npm install --save express
 
 npm install --save socket.io

@@ -1,14 +1,19 @@
-const express = require('express');
+//Depedencias
+import express from 'express';
+import cors from 'cors';
 
-const config = require ('../config.js');
-const user = require('./components/user/network');
+//Importaciones
+import { api } from '../config.js';
+import user from './components/user/network.js';
 
+//Inicializaciones dependencias
 const app = express(); 
 
-
-
+//Routers
 app.use('/api/user', user);
 
-app.listen( config.api.port, () => {
-    console.log(`Servidor corriendo en el puerto => ${config.api.port}`);
+app.use(cors({ origin: true, credentials: false }));
+
+app.listen( api.port, () => {
+    console.log(`Servidor corriendo en el puerto => ${api.port}`);
 });
