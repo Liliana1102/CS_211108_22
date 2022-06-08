@@ -1,10 +1,8 @@
 
 import { Router } from 'express';
-
-
 import { success as _success } from '../../../network/response.js';
 import { getData } from '../../../model/db.js';
-
+import { getUser } from '../../../model/users.js';
 
 const router = Router();
 
@@ -113,6 +111,16 @@ router.put('/update', async function (req, res) {
 
 
 })
+
+router.get('/all_users_orm', async function (reg, res){
+    getUser.findAll({ attributes: ['username', 'email', 'password', 'phone_number'] })
+    .then(users => {
+        res.send(users)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+});
 
 
 
