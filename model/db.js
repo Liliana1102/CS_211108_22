@@ -20,6 +20,8 @@ const SequelizeClient = new Sequelize(db.database, db.user, db.password, {
     dialect: 'postgres',
 });
 
+
+
 SequelizeClient.authenticate()
 
     .then (() =>{

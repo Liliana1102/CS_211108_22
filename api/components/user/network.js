@@ -122,6 +122,47 @@ router.get('/all_users_orm', async function (reg, res){
     })
 });
 
+//Post
+router.post('/create_users_orm',async function(req,res){
+    getUser.create({
+         id : req.query.id,
+         username: req.query.username,
+         email: req.query.email,
+         password: req.query.password,
+         phone_number: req.query.phone_number
+    }).then(users =>{
+        res.send(users)
+    }).catch(err=> {
+        console.log(err)
+    })
 
+});
+
+//Update
+router.put('/update_users_orm', async function(req, res){
+    let id=req.query.id
+    let newDato=req.query
+    getUser.findOne({
+        where: {id:id}
+    }).then(users =>{
+        res.sendStatus(200);
+        users.update(newDato)
+    })
+});
+
+//Delete
+router.delete('/delete_users_orm', async function(req, res){
+    let id=req.query.id;
+    console.log("id" + req.query.id);
+    getUser.destroy({
+        where:{
+            id: id
+        }
+    }).then(r =>{
+        _success(req, res, r ,200);
+    }).catch(err=> {
+        _success(req, res, r ,400);
+    })
+})
 
 export default router;
