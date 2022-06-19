@@ -4,7 +4,7 @@ import { DataTypes } from "sequelize";
 import bcrypt from "bcrypt";
 
 const User = getData.sequelizeClient.define(
-  "users",
+  "cat_users",
   {
     id: {
       type: DataTypes.UUID,
@@ -31,7 +31,7 @@ const User = getData.sequelizeClient.define(
     phone_number: DataTypes.STRING,
   },
   {
-    tableName: "users",
+    tableName: "cat_users",
     createdAt: false,
     updatedAt: false,
     freezeTableName: true,
