@@ -2,7 +2,7 @@ import { getData } from "./db.js";
 import { DataTypes } from "sequelize";
 import bcrypt from "bcrypt";
 
-const User = getData.sequelizeClient.define(
+const Profile = getData.sequelizeClient.define(
   "cat_users",
   {
     id: {
@@ -11,7 +11,7 @@ const User = getData.sequelizeClient.define(
       allowNull: false,
       primaryKey: true,
     },
-    username: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -24,7 +24,7 @@ const User = getData.sequelizeClient.define(
       allowNull: false,
       unique: {
         arg: true,
-        msg: "This username is already taken.",
+        msg: "This user is already busy",
       },
     },
     password: {
@@ -49,4 +49,4 @@ const User = getData.sequelizeClient.define(
   }
 );
 
-export const getUser = User;
+export const getProfile = Profile;

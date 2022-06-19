@@ -1,4 +1,5 @@
 import { getData } from "./db.js";
+import { Sequelize } from "sequelize";
 import { DataTypes } from "sequelize";
 import bcrypt from "bcrypt";
 
@@ -15,16 +16,12 @@ const User = getData.sequelizeClient.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: {
         arg: true,
-        msg: "This username is already taken.",
+        msg: "This user is already busy",
       },
     },
     password: {
@@ -35,6 +32,8 @@ const User = getData.sequelizeClient.define(
   },
   {
     tableName: "cat_users",
+    createdAt: false,
+    updatedAt: false,
     freezeTableName: true,
     hooks: {
       beforeCreate: (user, options) => {
