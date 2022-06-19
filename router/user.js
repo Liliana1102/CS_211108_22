@@ -1,11 +1,24 @@
 import { Router } from "express";
-import { getUser } from "../model/Users.js";
+import { success } from "./response.js";
+import { getUser } from "../models/Users.js";
 
 const router = Router();
 
-router.get("/list_all", async function (req, res) {
+const user = getUser.build({
+  attributes: ["id", "username", "email", "password", "phone_number"],
+});
+console.log(user instanceof getUser);
+console.log(user.username);
+
+router.get("/success", function (req, res) {
+  success(req, res, "", 200);
+});
+
+router.get("/list", async function (req, res) {
   getUser
-    .findAll({attributes: ["username", "email", "password", "phone_number"] })
+    .findAll({
+      exclude: [],
+    })
     .then((users) => {
       res.send(users);
     })
@@ -14,23 +27,45 @@ router.get("/list_all", async function (req, res) {
     });
 });
 
-router.post("/create_data", async function (req, res) {
+router.post("/add", async function (req, res) {
   getUser
-    .create(
-      {
-        id: req.query.id,
-        username: req.query.username,
-        email: req.query.email,
-        password: req.query.password,
-        phone_number: req.query.phone_number,
-      },
-      { fields: ["username", "email", "password", "phone_number"] }
-    )
+    .create({
+      username: req.query.username,
+      email: req.query.email,
+      password: req.query.password,
+      phone_number: req.query.phone_number,
+    })
     .then((users) => {
       res.send(users);
     })
     .catch((err) => {
       console.log(err);
+    });
+});
+
+router.put("/update/:id", (req, res) => {
+  const id = req.params.id;
+  const updates = req.query;
+  getUser
+    .findOne({
+      where: { id: id },
+    })
+    .then((del) => {
+      return del.update(updates);
+    })
+    .then((updated) => {
+      res.json(updated);
+    });
+});
+
+router.delete("/delete/:id", (req, res) => {
+  const id = req.params.id;
+  getUser
+    .destroy({
+      where: { id: id },
+    })
+    .then((deleted) => {
+      res.json(deleted);
     });
 });
 
