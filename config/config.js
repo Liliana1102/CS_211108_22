@@ -9,6 +9,13 @@ const data = dotenv.config({
   path: path.resolve(__dirname, `../environments/.env.${process.env.NODE_ENV}`),
 });
 
+//consolo.log(prcess.env.USERS);
+//user: process.env.USER,
+//host: process.env.HOST,
+//database: process.env.DATABASE,
+//password: process.env.PASSWORD,
+//port: process.env.PORT,
+
 export const db = {
   user: data.parsed.USER,
   host: data.parsed.HOST,
