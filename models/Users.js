@@ -1,7 +1,8 @@
 import { getData } from "./db.js";
-import { Sequelize } from "sequelize";
+import Sequelize from "sequelize";
 import { DataTypes } from "sequelize";
 import bcrypt from "bcrypt";
+import { getFather } from "./father.js";
 
 const User = getData.sequelizeClient.define(
   "cat_users",
@@ -12,7 +13,11 @@ const User = getData.sequelizeClient.define(
       allowNull: false,
       primaryKey: true,
     },
-    username: {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -21,7 +26,7 @@ const User = getData.sequelizeClient.define(
       allowNull: false,
       unique: {
         arg: true,
-        msg: "This user is already busy",
+        msg: "this username is alredy taken.",
       },
     },
     password: {
@@ -32,8 +37,6 @@ const User = getData.sequelizeClient.define(
   },
   {
     tableName: "cat_users",
-    createdAt: false,
-    updatedAt: false,
     freezeTableName: true,
     hooks: {
       beforeCreate: (user, options) => {
@@ -47,5 +50,10 @@ const User = getData.sequelizeClient.define(
     },
   }
 );
+
+User.hasMany(getFather, {
+  foreignKey: "catUserId",
+});
+getFather.belongsTo(User);
 
 export const getUser = User;
